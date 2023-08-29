@@ -3,16 +3,18 @@
     {
       "start_date": {
         "year": "2023",
-        "second": "12"
+        "second": "12",
+        "format": "H:%M:%S.%fZ"
       },
       "end_date": {
         "year": "2023",
-        "second": "15"
+        "second": "15",
+        "format": "H:%M:%S.%fZ"
       },
       "text": {
         "text": "Test 1"
       },
-      "display_date": "HH:MM:ss"
+      "display_date": "generate format for seconds and milliseconds"
     },
     {
       "start_date": {
