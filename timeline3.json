@@ -2,13 +2,15 @@
   "events": [
     {
       "start_date": {
-        "year": "1963",
+        "year": "2023",
         "second": "12",
+        "display_date": "SS",
         "format": "SS"
       },
       "end_date": {
-        "year": "1963",
+        "year": "2023",
         "second": "15",
+        "display_date": "SS",
         "format": "SS"
       },
       "text": {
