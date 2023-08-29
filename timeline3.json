@@ -11,7 +11,8 @@
       },
       "text": {
         "text": "Test 1"
-      }
+      },
+      "display_date": "HH:MM:ss"
     },
     {
       "start_date": {
@@ -24,7 +25,8 @@
       },
       "text": {
         "text": "Test 2"
-      }
+      },
+      "display_date": "HH:MM:ss"
     }
   ]
 }
