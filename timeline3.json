@@ -3,15 +3,11 @@
     {
       "start_date": {
         "year": "2023",
-        "second": "12",
-        "display_date": "ss",
-        "format": "ss"
+        "second": "12"
       },
       "end_date": {
         "year": "2023",
-        "second": "15",
-        "display_date": "ss",
-        "format": "ss"
+        "second": "15"
       },
       "text": {
         "text": "Test 1"
@@ -20,15 +16,11 @@
     {
       "start_date": {
         "year": "2023",
-        "second": "14",
-        "display_date": "ss",
-        "format": "ss"
+        "second": "14"
       },
       "end_date": {
         "year": "2023",
-        "second": "17",
-        "display_date": "ss",
-        "format": "ss"
+        "second": "17"
       },
       "text": {
         "text": "Test 2"
