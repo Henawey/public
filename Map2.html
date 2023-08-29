@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Timeline</title>
+    <script type="text/javascript"
+        src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
+    <link href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css" rel="stylesheet"
+        type="text/css" />
+    <style type="text/css">
+        #visualization {
+            width: 600px;
+            height: 400px;
+            border: 1px solid lightgray;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="visualization"></div>
+    <script type="text/javascript">
+        // DOM element where the Timeline will be attached
+        var container = document.getElementById("visualization");
+
+        // Create a DataSet (allows two way data-binding)
+        var items = new vis.DataSet([
+            { title: '13:52:10.000 - 13:52:10.800', content: "800", start: "13:52:10.000", end: "13:52:10.800" },
+            { title: 'tooltip item 2', content: "123", start: "2022-07-20 13:52:11.000", end: "2022-07-20 13:52:12.900" },
+            { title: 'tooltip item 3', content: "123", start: "2022-07-20 13:52:10.000", end: "2022-07-20 13:52:11.200" },
+        ]);
+
+        // Configuration for the Timeline
+        var options = {
+            format: {
+                majorLabels: {
+                    second: 'HH:mm:ss.SSS',
+                },
+                minorLabels: {
+                    second: 'HH:mm:ss.SSS',
+                }
+            }
+        };
+
+        // Create a Timeline
+        var timeline = new vis.Timeline(container, items, options);
+    </script>
+</body>
+
+</html>
