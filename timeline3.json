@@ -2,9 +2,9 @@
   "events": [
     {
       "start_date": {
-        "month": "8",
-        "day": "9",
-        "year": "1963"
+        "year": "1963",
+        "second": "12",
+        "format": "ss"
       },
       "text": {
         "text": "Test 1"
