@@ -9,40 +9,83 @@
         type="text/css" />
     <style type="text/css">
         #visualization {
-            width: 600px;
-            height: 400px;
+            width: 100%;
+            height: 100%;
             border: 1px solid lightgray;
         }
     </style>
 </head>
 
 <body>
+    <input type="file" id="file-selector">
     <div id="visualization"></div>
     <script type="text/javascript">
-        // DOM element where the Timeline will be attached
-        var container = document.getElementById("visualization");
+        const getFileFromFileSelector = async () => {
+            return new Promise((resolve, reject) => {
+                const fileSelector = document.getElementById('file-selector');
+                fileSelector.addEventListener('change', (event) => {
+                    const file = event.target.files[0];
+                    resolve(file)
+                });
+            });
 
-        // Create a DataSet (allows two way data-binding)
-        var items = new vis.DataSet([
-            { title: '13:52:10.000 - 13:52:10.800', content: "800", start: "13:52:10.000", end: "13:52:10.800" },
-            { title: 'tooltip item 2', content: "123", start: "2022-07-20 13:52:11.000", end: "2022-07-20 13:52:12.900" },
-            { title: 'tooltip item 3', content: "123", start: "2022-07-20 13:52:10.000", end: "2022-07-20 13:52:11.200" },
-        ]);
+            return promise
+        }
 
-        // Configuration for the Timeline
-        var options = {
-            format: {
-                majorLabels: {
-                    second: 'HH:mm:ss.SSS',
-                },
-                minorLabels: {
-                    second: 'HH:mm:ss.SSS',
+        const loadFileAsText = async (file) => {
+            return new Promise((resolve, reject) => {
+                const fileReader = new FileReader();
+                fileReader.onload = function (fileLoadedEvent) {
+                    const textFromFileLoaded = fileLoadedEvent.target.result;
+                    resolve(textFromFileLoaded)
+                };
+
+                fileReader.readAsText(file, "UTF-8");
+            });
+        }
+
+        const dataPrepration = (rawData) => {
+            const data = JSON.parse(rawData);
+            data.forEach((item) => {
+                item.start = new Date(item.start);
+                item.end = new Date(item.end);
+                item.content = item.content + ' ms';
+            })
+            return data;
+        }
+
+        const renderTimeline = (data) => {
+            // DOM element where the Timeline will be attached
+            var container = document.getElementById("visualization");
+
+            // Create a DataSet (allows two way data-binding)
+            var items = new vis.DataSet(data);
+
+            // Configuration for the Timeline
+            var options = {
+                format: {
+                    majorLabels: {
+                        second: 'HH:mm:ss.SSS',
+                    },
+                    minorLabels: {
+                        second: 'HH:mm:ss.SSS',
+                    }
                 }
-            }
-        };
+            };
 
-        // Create a Timeline
-        var timeline = new vis.Timeline(container, items, options);
+            // Create a Timeline
+            var timeline = new vis.Timeline(container, items, options);
+        }
+
+        const main = async () => {
+            const file = await getFileFromFileSelector();
+            const fileContent = await loadFileAsText(file);
+            const data = dataPrepration(fileContent);
+            renderTimeline(data)
+        }
+
+        main();
+
     </script>
 </body>
 
