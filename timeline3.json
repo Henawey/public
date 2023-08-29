@@ -4,14 +4,14 @@
       "start_date": {
         "year": "2023",
         "second": "12",
-        "display_date": "SS",
-        "format": "SS"
+        "display_date": "ss",
+        "format": "ss"
       },
       "end_date": {
         "year": "2023",
         "second": "15",
-        "display_date": "SS",
-        "format": "SS"
+        "display_date": "ss",
+        "format": "ss"
       },
       "text": {
         "text": "Test 1"
