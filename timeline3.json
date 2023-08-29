@@ -4,7 +4,12 @@
       "start_date": {
         "year": "1963",
         "second": "12",
-        "format": "ss"
+        "format": "SS"
+      },
+      "end_date": {
+        "year": "1963",
+        "second": "15",
+        "format": "SS"
       },
       "text": {
         "text": "Test 1"
