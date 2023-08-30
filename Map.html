@@ -44,18 +44,50 @@
             });
         }
 
-        const dataPrepration = (rawData) => {
+        const groupsPrepration = (rawData) => {
             const data = JSON.parse(rawData);
+            // groupd data entries by group
+            const dataGrouped = data.reduce((acc, item) => {
+                if (acc[item.group]) {
+                    acc[item.group].push(item)
+                } else {
+                    acc[item.group] = [item]
+                }
+                return acc;
+            }, {})
+
+            // create make id as index and content as group
+            var groups = [];
+            const dataGroupedKeys = Object.keys(dataGrouped)
+            for (var i = 0; i < dataGroupedKeys.length; i++) {
+                var group = dataGroupedKeys[i];
+                groups.push({ id: i, content: group });
+            }
+
+            return groups;
+        }
+
+        const dataPrepration = (rawData, groups) => {
+            const data = JSON.parse(rawData);
+
+            const groupsIndex = groups.reduce((acc, item) => {
+                acc[item.content] = item.id
+                return acc;
+            }, {})
+
+            console.log(groupsIndex)
+
             data.forEach((item) => {
                 item.start = new Date(item.start);
                 item.end = new Date(item.end);
                 item.title = item.title + "\n" + item.content + ' ms';
                 item.content = item.title
+                item.group = groupsIndex[item.group];
             })
             return data;
         }
 
-        const renderTimeline = (data) => {
+        const renderTimeline = (data, groups) => {
             // DOM element where the Timeline will be attached
             var container = document.getElementById("visualization");
 
@@ -64,6 +96,9 @@
 
             // Configuration for the Timeline
             var options = {
+                groupOrder: function (a, b) {
+                    return a.value - b.value;
+                },
                 format: {
                     majorLabels: {
                         second: 'HH:mm:ss.SSS',
@@ -76,13 +111,15 @@
 
             // Create a Timeline
             var timeline = new vis.Timeline(container, items, options);
+            timeline.setGroups(groups)
         }
 
         const main = async () => {
             const file = await getFileFromFileSelector();
             const fileContent = await loadFileAsText(file);
-            const data = dataPrepration(fileContent);
-            renderTimeline(data)
+            const groups = groupsPrepration(fileContent);
+            const data = dataPrepration(fileContent, groups);
+            renderTimeline(data, groups)
         }
 
         main();
