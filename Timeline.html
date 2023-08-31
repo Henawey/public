@@ -1,3 +1,4 @@
+<!-- https://github.com/visjs/vis-timeline/tree/master/examples -->
 <!doctype html>
 <html>
 
@@ -12,6 +13,16 @@
             width: 100%;
             height: 100%;
             border: 1px solid lightgray;
+        }
+
+        body,
+        html {
+            font-family: arial, sans-serif;
+            font-size: 10pt;
+        }
+
+        .vis-item .vis-item-overflow {
+            overflow: visible;
         }
     </style>
 </head>
@@ -94,8 +105,19 @@
 
             // Configuration for the Timeline
             var options = {
+                // option groupOrder can be a property name or a sort function
+                // the sort function must compare two groups and return a value
+                //     > 0 when a > b
+                //     < 0 when a < b
+                //       0 when a == b
+                margin: { item: 0 },
+                order: function (a, b) {
+                    const aDuration = a.end - a.start;
+                    const bDuration = b.end - b.start;
+                    return aDuration - bDuration;
+                },
                 groupOrder: function (a, b) {
-                    return a.value - b.value;
+                    return a.id - b.id;
                 },
                 format: {
                     majorLabels: {
@@ -108,8 +130,9 @@
             };
 
             // Create a Timeline
-            var timeline = new vis.Timeline(container, items, options);
+            var timeline = new vis.Timeline(container, items);
             timeline.setGroups(groups)
+            timeline.setOptions(options)
         }
 
         const main = async () => {
